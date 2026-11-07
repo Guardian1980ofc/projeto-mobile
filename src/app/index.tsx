@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
@@ -7,7 +7,11 @@ import { Button } from '../components/Button';
 export default function RegisterScreen() {
   const router = useRouter();
 
-  // Estados para capturar os dados do usuário
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -15,14 +19,16 @@ export default function RegisterScreen() {
 
   const handleRegister = () => {
     if (!nome || !email || !senha) {
-      Alert.alert('Atenção', 'Por favor, preencha os campos obrigatórios!');
+      alert('Por favor, preencha os campos obrigatórios!');
       return;
     }
 
-    Alert.alert('Sucesso!', 'Conta criada com sucesso!', [
-      { text: 'Ir para o App', onPress: () => router.push('/home' as any) },
-    ]);
+    router.push('/home' as any);
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
