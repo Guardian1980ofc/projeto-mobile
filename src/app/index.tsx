@@ -4,30 +4,41 @@ import { useRouter } from 'expo-router';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const router = useRouter();
 
-  // Utilizando State conforme pedido pelo professor
+  // Estados para capturar os dados do usuário
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [cursoInteresse, setCursoInteresse] = useState('');
 
-  const handleLogin = () => {
-    if (!email || !senha) {
-      Alert.alert('Atenção', 'Por favor, preencha todos os campos!');
+  const handleRegister = () => {
+    if (!nome || !email || !senha) {
+      Alert.alert('Atenção', 'Por favor, preencha os campos obrigatórios!');
       return;
     }
-    // Navega para a tela de catálogo/home após login
-    router.push('/home');
+
+    Alert.alert('Sucesso!', 'Conta criada com sucesso!', [
+      { text: 'Ir para o App', onPress: () => router.push('/home' as any) },
+    ]);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Educa+</Text>
-      <Text style={styles.subtitle}>Acesse sua conta para continuar</Text>
+      <Text style={styles.subtitle}>Crie sua conta para começar a aprender</Text>
+
+      <Input
+        label="Nome Completo"
+        placeholder="Digite seu nome"
+        value={nome}
+        onChangeText={setNome}
+      />
 
       <Input
         label="E-mail"
-        placeholder="digite seu e-mail"
+        placeholder="Digite seu e-mail"
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
@@ -36,18 +47,25 @@ export default function LoginScreen() {
 
       <Input
         label="Senha"
-        placeholder="digite sua senha"
+        placeholder="Digite sua senha"
         secureTextEntry
         value={senha}
         onChangeText={setSenha}
       />
 
-      <Button title="Entrar" onPress={handleLogin} />
+      <Input
+        label="Área de Interesse (Ex: TI, Design)"
+        placeholder="Qual curso você procura?"
+        value={cursoInteresse}
+        onChangeText={setCursoInteresse}
+      />
+
+      <Button title="Cadastrar" onPress={handleRegister} />
 
       <Button
-        title="Criar Conta"
+        title="Já tenho uma conta (Entrar)"
         variant="secondary"
-        onPress={() => router.push('/register')}
+        onPress={() => router.push('/login' as any)}
       />
     </View>
   );
@@ -65,11 +83,12 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     color: '#2563EB',
-    marginBottom: 8,
+    marginBottom: 4,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#6B7280',
-    marginBottom: 32,
+    marginBottom: 24,
+    textAlign: 'center',
   },
 });

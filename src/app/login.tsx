@@ -4,34 +4,24 @@ import { useRouter } from 'expo-router';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
-export default function RegisterScreen() {
+export default function LoginScreen() {
   const router = useRouter();
 
-  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleRegister = () => {
-    if (!nome || !email || !senha) {
-      Alert.alert('Erro', 'Preencha todos os campos para cadastrar.');
+  const handleLogin = () => {
+    if (!email || !senha) {
+      Alert.alert('Erro', 'Preencha o e-mail e a senha.');
       return;
     }
-    Alert.alert('Sucesso', 'Conta criada com sucesso!', [
-      { text: 'OK', onPress: () => router.push('/home') },
-    ]);
+    router.push('/home' as any);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Criar Conta</Text>
-      <Text style={styles.subtitle}>Junte-se ao Educa+ hoje mesmo</Text>
-
-      <Input
-        label="Nome Completo"
-        placeholder="Digite seu nome"
-        value={nome}
-        onChangeText={setNome}
-      />
+      <Text style={styles.title}>Bem-vindo de volta!</Text>
+      <Text style={styles.subtitle}>Faça login para continuar</Text>
 
       <Input
         label="E-mail"
@@ -50,10 +40,10 @@ export default function RegisterScreen() {
         onChangeText={setSenha}
       />
 
-      <Button title="Cadastrar" onPress={handleRegister} />
+      <Button title="Entrar" onPress={handleLogin} />
 
       <Button
-        title="Já tenho uma conta"
+        title="Voltar ao Cadastro"
         variant="secondary"
         onPress={() => router.back()}
       />
@@ -78,6 +68,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#6B7280',
-    marginBottom: 24,
+    marginBottom: 32,
   },
 });
