@@ -5,6 +5,7 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 export default function RegisterScreen() {
+  // este formulário reúne os dados básicos para criar uma conta
   const router = useRouter();
 
   const [isClient, setIsClient] = useState(false);

@@ -5,6 +5,7 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 export default function LoginScreen() {
+  // os campos guardam o e-mail e a senha digitados pela pessoa
   const router = useRouter();
 
   const [email, setEmail] = useState('');
